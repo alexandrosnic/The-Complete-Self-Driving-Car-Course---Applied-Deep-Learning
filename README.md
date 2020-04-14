@@ -14,7 +14,7 @@ We do that by using:
 
     `cv2.cvtColor(image, cv2.COLOR_RGB2GRAY)` 
     
-![Greyscale image](https://github.com/alexandrosnic/The-Complete-Self-Driving-Car-Course---Applied-Deep-Learning/gray.PNG)
+<img width="960" alt="gray" src="https://user-images.githubusercontent.com/34197007/79237262-3fcb1e80-7e6e-11ea-8096-5a167dd98338.PNG">
 
 2. **Reduce Noise:**
 
@@ -23,7 +23,7 @@ We do that by using:
 
     `cv2.GaussianBlur(grayImage, (5,5), 0)` 
     
-![Blurred image](https://github.com/alexandrosnic/The-Complete-Self-Driving-Car-Course---Applied-Deep-Learning/blur.png)
+<img width="960" alt="blur" src="https://user-images.githubusercontent.com/34197007/79237268-40fc4b80-7e6e-11ea-9eb0-77ac0fac6ee4.PNG">
 
 3. **Gradient image:** 
 
@@ -35,8 +35,7 @@ We select a *high threshold = 150* and *low threshold = 50*. Usually ratio of hi
  - If gradient < low_threshold, then no edge. 
  - If in between then it will be an edge only if it's next to a strong edge. 
  
- ![Gradient image](https://github.com/alexandrosnic/The-Complete-Self-Driving-Car-Course---Applied-Deep-Learning/canny.png)
-
+<img width="960" alt="canny" src="https://user-images.githubusercontent.com/34197007/79237270-4194e200-7e6e-11ea-9615-75342d76915c.PNG">
 
 4. **Region of interest:** 
 
@@ -47,7 +46,7 @@ Where:
  - *polygons*, is an array defining the shape in which we want to focus
  - and *255* is the color (white) of the mask.
  
-![Region of interest](https://github.com/alexandrosnic/The-Complete-Self-Driving-Car-Course---Applied-Deep-Learning/fillpoly.png)
+<img width="960" alt="fillpoly" src="https://user-images.githubusercontent.com/34197007/79237261-3f328800-7e6e-11ea-9f91-0d654796f09c.PNG">
 
 5. **Bitwise AND:**
 
@@ -55,7 +54,7 @@ We apply bitwise AND: This returns 1 only if at the same bit-positions of the co
 
     `cv2.bitwise_and(image, mask)` 
     
-![Masked image](https://github.com/alexandrosnic/The-Complete-Self-Driving-Car-Course---Applied-Deep-Learning/bitwise.png)
+<img width="960" alt="bitwise" src="https://user-images.githubusercontent.com/34197007/79237265-4063b500-7e6e-11ea-8a09-ef4bc6a9207f.PNG">
 
 6. **Hough Transformation:**
 
@@ -74,7 +73,7 @@ Where:
 - minLineLength is the min amount of pixels on the same line in order to define it a line. 
 - maxLineGap is the max gap between lines in pixels, in order to combine them, and consider them as one line.
 
-![Hough Transformation image](https://github.com/alexandrosnic/The-Complete-Self-Driving-Car-Course---Applied-Deep-Learning/houghLines.png)
+<img width="960" alt="houghLines" src="https://user-images.githubusercontent.com/34197007/79237263-3fcb1e80-7e6e-11ea-80d8-2a215a9655f7.PNG">
 
 7. **Average line:**
 
@@ -85,7 +84,7 @@ Of all the lines we identified, we need to find the average of the lines, in ord
 
 We make use of `make_coordinates` function to find the (x1, y1) and (x2, y2) points of the lines.
 
-![Average Lines image](https://github.com/alexandrosnic/The-Complete-Self-Driving-Car-Course---Applied-Deep-Learning/averagedLines.png)
+<img width="960" alt="averagedLines" src="https://user-images.githubusercontent.com/34197007/79237264-4063b500-7e6e-11ea-8990-5929855f9048.PNG">
 
 8. **Display lines:**
 
@@ -99,7 +98,7 @@ Where:
  - *(255, 0, 0)* is the color of the line we want (blue)
  - And *10* the thickness. 
 
-![Display lines image](https://github.com/alexandrosnic/The-Complete-Self-Driving-Car-Course---Applied-Deep-Learning/display.png)
+<img width="960" alt="display" src="https://user-images.githubusercontent.com/34197007/79237259-3e99f180-7e6e-11ea-9c03-a60c394631d5.PNG">
 
 9. **Blend the two images:**
 
@@ -115,7 +114,7 @@ Where:
  - *1* is the weight for line image.
  - *1* is a scalar value to be added to both the images.
 
-![Blended image](https://github.com/alexandrosnic/The-Complete-Self-Driving-Car-Course---Applied-Deep-Learning/blend.png)
+<img width="960" alt="blend" src="https://user-images.githubusercontent.com/34197007/79237266-4063b500-7e6e-11ea-9942-c3ad000826a8.PNG">
 
 10. **Show the results:**
 
