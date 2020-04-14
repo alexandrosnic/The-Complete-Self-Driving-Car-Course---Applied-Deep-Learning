@@ -14,7 +14,7 @@ We do that by using:
 
     `cv2.cvtColor(image, cv2.COLOR_RGB2GRAY)` 
     
-![Greyscale image](https://github.com/alexandrosnic/The-Complete-Self-Driving-Car-Course---Applied-Deep-Learning/gray.png)
+![Greyscale image](https://github.com/alexandrosnic/The-Complete-Self-Driving-Car-Course---Applied-Deep-Learning/blob/master/gray.png)
 
 2. **Reduce Noise:**
 
