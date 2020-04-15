@@ -61,39 +61,36 @@ def average_slope_intercept(image, lines):
     right_line = make_coordinates(image, right_fit_average)
     return np.array([left_line, right_line])
 
-# For detecting line edges in an image
-image = cv2.imread('test_image.jpg')
-# Attention: Copy instead of using exact the same image
-lane_image = np.copy(image)
-canny_image = canny(lane_image)
-cropped_image = region_of_interest(canny_image)
-lines = cv2.HoughLinesP(cropped_image, 2, np.pi/180, 100, np.array([]), minLineLength=40, maxLineGap=5)
-averaged_lines = average_slope_intercept(lane_image, lines)
-cv2.imshow('result', display_lines(cropped_image, averaged_lines))
-cv2.waitKey(0)
-line_image = display_lines(lane_image, averaged_lines)
-combo_image = cv2.addWeighted(lane_image, 0.8, line_image, 1, 1)
+# # For detecting line edges in an image
+# image = cv2.imread('test_image.jpg')
+# # Attention: Copy instead of using exact the same image
+# lane_image = np.copy(image)
+# canny_image = canny(lane_image)
+# cropped_image = region_of_interest(canny_image)
+# lines = cv2.HoughLinesP(cropped_image, 2, np.pi/180, 100, np.array([]), minLineLength=40, maxLineGap=5)
+# averaged_lines = average_slope_intercept(lane_image, lines)
+# line_image = display_lines(lane_image, averaged_lines)
+# combo_image = cv2.addWeighted(lane_image, 0.8, line_image, 1, 1)
 # cv2.imshow('result', combo_image)
 # cv2.waitKey(0)
 
 # For detecting line edges in a video capture
-# cap = cv2.VideoCapture("test2.mp4")
-# while(cap.isOpened()):
-#     _, frame = cap.read() # returns a boolean we are not interested now, and the frame
-#     canny_image = canny(frame)
-#     cropped_image = region_of_interest(canny_image)
-#     lines = cv2.HoughLinesP(cropped_image, 2, np.pi/180, 100, np.array([]), minLineLength=40, maxLineGap=5)
-#     averaged_lines = average_slope_intercept(frame, lines)
-#     line_image = display_lines(frame, averaged_lines)
-#     combo_image = cv2.addWeighted(frame, 0.8, line_image, 1, 1)
-#     cv2.imshow('result', combo_image)
-#
-#     # Displays the image for a specific amount of time
-#     # With 1 it will wait 1ms in between the frames. Ιf we press q, then break
-#     if cv2.waitKey(1) == ord('q'):
-#         break
-#
-# cap.release()
+cap = cv2.VideoCapture("test2.mp4")
+while(cap.isOpened()):
+    _, frame = cap.read() # returns a boolean we are not interested now, and the frame
+    canny_image = canny(frame)
+    cropped_image = region_of_interest(canny_image)
+    lines = cv2.HoughLinesP(cropped_image, 2, np.pi/180, 100, np.array([]), minLineLength=40, maxLineGap=5)
+    averaged_lines = average_slope_intercept(frame, lines)
+    line_image = display_lines(frame, averaged_lines)
+    combo_image = cv2.addWeighted(frame, 0.8, line_image, 1, 1)
+    cv2.imshow('result', combo_image)
+
+    # Displays the image for a specific amount of time
+    # With 1 it will wait 1ms in between the frames. Ιf we press q, then break
+    if cv2.waitKey(1) == ord('q'):
+        break
+cap.release()
 
 # # Alternatively:
 # plt.imshow(canny)
