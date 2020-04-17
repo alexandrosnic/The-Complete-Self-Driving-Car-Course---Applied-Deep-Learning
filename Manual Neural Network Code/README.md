@@ -1,5 +1,5 @@
 ## README
-This is a tutorial on how to manually create a Neural Network.
+This is a tutorial on how to manually create a Neural Network based on the "The Complete Self Driving Car Course-Applied Deep Learning" course from Udemy.
 
 **Perceptron:**
 
