@@ -30,7 +30,8 @@ m->w1 and n->w2 and b -> bias
 
 =>
 
-w1(x1) + w2(x2) + b(bias value)```
+w1(x1) + w2(x2) + b(bias value)
+```
 
 By using the trained data, to find the w1, w2 and b coefficients of the line that has the minimum error, we can set where the classifier line is. Then, by setting to x1 and x2 our test data, we can classify the point depending if the outcome (score) is positive or negative.
 
