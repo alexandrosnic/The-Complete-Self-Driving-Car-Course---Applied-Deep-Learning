@@ -43,20 +43,24 @@ In the concept of neural network, assume that x1, x2 and b=1 is our input, and t
 
 Our linear model: w1(x1) + w2(x2) + b(bias value) will give a positive or a negative output. However, in order to best classify the dataset, we need an **activation function**. The most common activation function is step function (discrete):
 
-`y = 1, if score > 0,
+```
+y = 1, if score > 0,
 
-y = 0, if score < 0.`
+y = 0, if score < 0.
+```
 
 But this function doesn't tell us how close each data point is in the classifier line (the limit), thus we don't have much information about it.
 Thus, we prefer the sigmoid function (continuous) to have a likeliness-probability of each point, instead of binary output.
 
-`Input: x1, x2, b
+```
+Input: x1, x2, b
 
 First node (linear model): w1(x1) + w2(x2) + b(bias value)
 
 Second node (activation function): y = 1 if score > 0, otherwise 0
 
-Output: Categorization of 1 or 0`
+Output: Categorization of 1 or 0
+```
 
 
 
