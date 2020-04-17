@@ -6,6 +6,8 @@ This is a tutorial on how to manually create a Neural Network.
 The most basic form of Neural Network is Perceptron, a feedforward method.
 It receives input and transfer the appropriate output. 
 
+<img width="591" alt="perceptron" src="https://user-images.githubusercontent.com/34197007/79576404-81083c00-80c3-11ea-98dd-beb4f3a222a4.PNG">
+
 Let's see the logics behind it:
 
 
@@ -80,3 +82,5 @@ gradient descent(error) = (points*(probability-label)/NumberOfPoints) * **learni
 We use the learning rate (0.01) to improve the linear model just a small step every time.
 
 **Result:**
+
+![perceptrongif](https://user-images.githubusercontent.com/34197007/79576399-7f3e7880-80c3-11ea-88e4-74556b80943f.gif)
