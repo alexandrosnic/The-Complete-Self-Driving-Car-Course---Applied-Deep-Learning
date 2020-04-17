@@ -2,12 +2,14 @@
 This is a tutorial on how to manually create a Neural Network.
 
 **Perceptron:**
+
 The most basic form of Neural Network is Perceptron, a feedforward method.
 It receives input and transfer the appropriate output. 
 
 Let's see the logics behind it:
 
 **1. Set the borderline (Classification using a linear model):**
+
 For classifying, we get the linear equation:
 ny=mx+b
 =>
@@ -23,6 +25,7 @@ By using the trained data, to find the w1, w2 and b coefficients of the line tha
 In the concept of neural network, assume that x1, x2 and b=1 is our input, and the linear model is our perceptron (intermidiate node). Then, the x1, x2 and b input will give a specific output based on if it is above or below the line. 
 
 **2. Classify the data (Activation function):**
+
 Our linear model: w1(x1) + w2(x2) + b(bias value) will give a positive or a negative output. However, in order to best classify the dataset, we need an **activation function**. The most common activation function is step function (discrete):
 y = 1, if score > 0,
 y = 0, if score < 0.
@@ -36,6 +39,7 @@ Second node (activation function): y = 1 if score > 0, otherwise 0
 Output: Categorization of 1 or 0
 
 **3. Calculate the error (Cross Entropy):**
+
 But then we need to find our best linear model. To do this, we use the cross entropy to calculate the **error** of each of the model.
 **Cross entropy** is: -Σyln( p ) + (1-y)(ln(1-p))
 Then, the lower the cross entropy, the better linear model.
