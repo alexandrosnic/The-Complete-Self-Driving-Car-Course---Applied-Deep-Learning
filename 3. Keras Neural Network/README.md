@@ -6,18 +6,23 @@ The code was part of the **"Complete Self-Driving Car Course - Applied Deep Lear
 1. **Create the dataset:**
 We first create a dataset of 1000 points, divided in two classes (binary). We do that using the random generator, with a fixed seed
 
+<img width="285" alt="initial dataset" src="https://user-images.githubusercontent.com/34197007/79742695-85229c80-8303-11ea-9214-47eefd5dea3a.PNG">
+
 2. **Create the NN model:**
 We make use of the Sequential model of the keras library, which is a linear stack of layers.
 In our case we have the input and the output layer, and we use the add method to add them.
 
 3. **Define the type of the layers' interconnection:**
 Our neural network contains dense layers (fully connected neural network), meaning that each node of every layer is connected to all the nodes of the preceding layer.
+
+`Sequential().add(Dense(units=1, input_shape=(2,), activation='sigmoid'))`
+
 We set:
 - Output (units) = 1
 - Input (input_shape) = 2
 - Activation function (activation) = sigmoid.
 
-`Sequential().add(Dense(units=1, input_shape=(2,), activation='sigmoid'))`
+![Dense layer](https://user-images.githubusercontent.com/34197007/79742693-848a0600-8303-11ea-98d9-b765ef365f33.png)
 
 4. **We set the optimizer of the model:**
 
@@ -52,6 +57,10 @@ performance of our model, we can identify how many epochs the error needs in ord
 7. **Accuracy and loss plot:**
 By drawing the accuracy and loss plots we were able to identify how many epochs our model needs to converge, and in general its performance. By the plots we can see that around 10 epochs are enough for our model to converge.
 
+<img width="292" alt="accuracy" src="https://user-images.githubusercontent.com/34197007/79742700-85bb3300-8303-11ea-8770-30f266b1caf1.PNG">
+
+<img width="293" alt="loss" src="https://user-images.githubusercontent.com/34197007/79742696-85229c80-8303-11ea-99ee-ba50df1b9603.PNG">
+
 8. **Decision boundary plot:**
 
 We then plot the decision boundary from the min, to the max point of the horizontal and vertical axis, equally spaced over 50 points in total. We do this using ***linspace***, which has 50 by default. Meshgrid takes
@@ -60,7 +69,11 @@ We then use ravel to reduce the dimension of the matrix from 2 to 1 dimensional 
 With predict, we train all the points of the grid and return an array of predictions.
 What is plotted then, it's the graph that represents the gradient of the probability of each point (intensity of the color) to be in either of the classes.
 
+<img width="291" alt="decisionboundary" src="https://user-images.githubusercontent.com/34197007/79742691-83f16f80-8303-11ea-8f47-bad96669b2eb.PNG">
+
 9. **Predict an unlabelled new data point:**
 Last, we use a new test point that has not been labelled, to label it using our neural network classifier.
 
 `Sequential().predict(point)`
+
+<img width="283" alt="prediction" src="https://user-images.githubusercontent.com/34197007/79742697-85bb3300-8303-11ea-98ba-3a5536bdbbd1.PNG">
