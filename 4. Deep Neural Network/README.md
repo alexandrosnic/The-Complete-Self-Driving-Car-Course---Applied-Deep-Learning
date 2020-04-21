@@ -2,11 +2,11 @@
 
 ## Deep Neural Network
 
-This is a tutorial on how to create a Deep Neural Network (NN) using Keras.
+**This is a tutorial on how to create a Deep Neural Network (NN) using Keras.**
 
 We will create a simple deep neural network using the keras library, in a few simple steps, in jupyter lab, to have a visual representation.
 
-The code was part of the "Complete Self-Driving Car Course - Applied Deep Learning" course of Udemy.
+The code was part of the **"Complete Self-Driving Car Course - Applied Deep Learning" course of Udemy.**
 
 
 
