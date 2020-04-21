@@ -35,19 +35,19 @@ The error function we use for training the NN, is like in a perceptron, ***cross
 
 Thus:
 
-**1. Feedforward to predict all outputs.
+**1. Feedforward to predict all outputs.**
 
-2. Determine total error with cross_entropy.
+**2. Determine total error with cross_entropy.**
 
-3. Backpropagation.
+**3. Backpropagation.**
 
-4. Repeat at some learning rate.**
+**4. Repeat at some learning rate.**
 
 
 
 Now moving on to the implementation code:
 
-**1. Create the dataset:**
+## 1. Create the dataset:
 
 In our implementation code we used the sklearn library.
 sklearn among others, provides access to various datasets. We will use the make_circles method with:
@@ -66,31 +66,31 @@ Then we follow the same procedure as with a simple perceptron.
 
 
 
-**2. Create the NN model:**
+## 2. Create the NN model:
 
 We use the **Sequential** model.
 
 
 
-**3. Add the layers:**
+## 3. Add the layers:
 
 We add 4 dense NN in the hidden layer, and then add another 1 layer of one NN for the output.
 
 
 
-**4. Compile the NN:**
+## 4. Compile the NN:
 
 We use the **adam** optimizer, the **binary cross entropy** loss function, and we set **accuracy** as a metric.
 
 
 
-**5. Fit our data:**
+## 5. Fit our data:
 
 We set **verbose** to 1, **batch size** to 20, **epochs** to 100 and **shuffle** to true. However, we will see that we need much less than 100 epochs for the model to converge.
 
 
 
-**6. Accuracy and loss plots:**
+## 6. Accuracy and loss plots:
 
 As we notice, our model converges after around 60 epochs, which seems to be the appropriate number of epochs.
 
@@ -100,7 +100,7 @@ As we notice, our model converges after around 60 epochs, which seems to be the 
 
 
 
-**7. Decision boundary plot:**
+## 7. Decision boundary plot:
 
 Using the contour tool, we plot the decision boundary of our neural network. The different intensity of the color determines the probability of a point to be in one class or another.
 
@@ -108,7 +108,7 @@ Using the contour tool, we plot the decision boundary of our neural network. The
 
 
 
-**8. Predict an unlabelled new data point:**
+## 8. Predict an unlabelled new data point:
 
 To test our neural network, we use an unlabelled data point to evaluate its classification:
 
