@@ -8,9 +8,9 @@ In the binary classification we used the sigmoid function to classify our datase
 
 `P(score m) = exp(m) / Σ exp(n)`
 
-`m: is the score of the class we observe`
+m: is the score of the class we observe
 
-`n: is the score of every train set`
+n: is the score of every train set
 
 Recall that since it is a supervised learning method, we have to train our NN on a labelled dataset.
 
