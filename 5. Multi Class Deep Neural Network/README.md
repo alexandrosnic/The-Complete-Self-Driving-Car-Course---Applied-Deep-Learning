@@ -6,9 +6,11 @@ The difference between a binary deep neural network (NN) and a multiclass NN, li
 
 In the binary classification we used the sigmoid function to classify our dataset, whereas in multi class NN, we make use of the ***Softmax*** activation function:
 
-`P(score m) = exp(m) / Σ exp(n)
-m: is the score of the class we observe
-n: is the score of every train set`
+`P(score m) = exp(m) / Σ exp(n)`
+
+`m: is the score of the class we observe`
+
+`n: is the score of every train set`
 
 Recall that since it is a supervised learning method, we have to train our NN on a labelled dataset.
 
@@ -16,6 +18,9 @@ Recall that since it is a supervised learning method, we have to train our NN on
 
 In the binary classification we made use of 0 and 1 to distinguish between the two classes.
 In multiclass classification, to ensure independence between the classes we use ***one hot encoding*** (instead of label encoding) to classify each of the dataset to classes. With one hot encoding we have as many rows as the number of our classes and as many columns as the number of our train sets.
+
+![one hot encoding](https://user-images.githubusercontent.com/34197007/79899215-ca7ec100-840c-11ea-8ed0-a97b97534351.jpg)
+
 
 **- MultiClass Cross entropy:**
 
@@ -29,6 +34,8 @@ To implement the code:
 **1. Create the dataset:**
 
 We will create the `make_blobs` dataset of the sklearn library.
+
+<img width="286" alt="dataset" src="https://user-images.githubusercontent.com/34197007/79899220-cb175780-840c-11ea-9d08-0e707175549e.PNG">
 
 **2.  Label the outcome:**
 
@@ -50,6 +57,10 @@ We set **verbose** to 1, **batch size** to 50, and **epochs** to 100.
 
 We use `predict_classes` instead of `predict`, for multiclass datasets and by using `contourf`  it will display different classes with a different color.
 
+<img width="282" alt="decisionBoundary" src="https://user-images.githubusercontent.com/34197007/79899212-c9e62a80-840c-11ea-9bcd-13370309ca86.PNG">
+
 **6. Predict an unlabelled new data point:**
 
 To test our neural network, we use an unlabelled data point to evaluate its classification:
+
+<img width="298" alt="prediction" src="https://user-images.githubusercontent.com/34197007/79899218-cb175780-840c-11ea-841c-8cf42b529a14.PNG">
