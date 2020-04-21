@@ -11,11 +11,11 @@ To do that, we combine 2 perceptrons (the simplest type of NN) into a third one,
 
 Thus, the ***feed forward*** process of a deep neural network, is that:
 
-**1.**  We set as input our testing points ( eg. x1, x2).
+-  We set as input our testing points ( eg. x1, x2).
 
-**2.** Then the weights of the first layer of NN are just the coefficients of our linear equations.
+- Then the weights of the first layer of NN are just the coefficients of our linear equations.
 
-**3.** And in the second layer of NN (hidden layer), they are just the weights of how much each linear equation should influence the output.
+- And in the second layer of NN (hidden layer), they are just the weights of how much each linear equation should influence the output.
 
 <img width="815" alt="2layerdeep" src="https://user-images.githubusercontent.com/34197007/79851881-325de900-83c6-11ea-99e3-a6fc03849f3e.PNG">
 
@@ -36,9 +36,14 @@ The error function we use for training the NN, is like in a perceptron, ***cross
 Thus:
 
 **1. Feedforward to predict all outputs.
+
 2. Determine total error with cross_entropy.
+
 3. Backpropagation.
+
 4. Repeat at some learning rate.**
+
+
 
 Now moving on to the implementation code:
 
