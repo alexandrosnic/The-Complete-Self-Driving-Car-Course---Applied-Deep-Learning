@@ -5,6 +5,8 @@ I will use Google collab for the visual representation rather than Jupyter lab, 
 
 The code was part of the  **"Complete Self-Driving Car Course - Applied Deep Learning" course of Udemy.**
 
+The first part of the tutorial is a brief description of the convolutional neural network whereas the second part is the implementation of the code.
+
 ![convolutional](https://user-images.githubusercontent.com/34197007/80314961-0fcc3580-87f5-11ea-9e36-b6726094c059.jpeg)
 
 
