@@ -53,7 +53,7 @@ Overall, the process of a convolutional layer is:
 - Every cell of the receptor field is **multiplied** by the corresponding kernel matrix cell. 
 - We take the sum of these values and divide it with the number of matrix's cells to take the **average**. 
 - The result is being shown in the feature map.
-- The combination of the feature maps are passed from a **Relu activation function**, accounting for non-linearity, which empirically showed to perform better than sigmoid or tanh, inspired from biological processes. The reason is that sigmoid (and tanh) activation function has the vanishing gradient problem, since its derivative will only be between 0 - 0.25, resulting in very slow convergence of the weights during the gradient descent method. Whereas the derivative of ReLu function is 0-1.
+- The combination of the feature maps are passed from a **Relu activation function**, accounting for non-linearity, which empirically showed to perform better than sigmoid or tanh, inspired from biological processes. The reason is that sigmoid (and tanh) activation function has the vanishing gradient problem, since its derivative will only be between 0 - 0.25, resulting in very slow convergence of the weights during the gradient descent method. Whereas the derivative of ReLu function is 0-1. The different activation functions are:
 
 ![relu](https://user-images.githubusercontent.com/34197007/80314977-15298000-87f5-11ea-9ef7-ecffab8bf42a.png)
 
@@ -81,6 +81,7 @@ The FC layers work the same way as the multi-layer perceptron-based NN. Thus its
 - Then, the input image **passes through the CNN**, scaled down for feature extraction and based on them the image is classified.
 - Based on if the classification is correct, the cross entropy  is calculated and in order to **minimize the error**, the parameters (weights and biases in FC, values of the filter matrix in convolutional layers) are recalculated using **backpropagation** (and gradient descent). However the filters, kernel size, the depth of the convolutional and pooling layers have to be predefined.
 
+All the procedure can be seen in the above image:
 
 <img width="905" alt="cnnexample" src="https://user-images.githubusercontent.com/34197007/80314987-16f34380-87f5-11ea-8e58-1f00dcab22ea.PNG">
 
@@ -103,10 +104,12 @@ The difference however is that this time we don't flatten the images into one ar
 
 There are various pre-built **CNN architectures** such as LeNet, AlexNet, ZFNet, GoogleNet. We will make use of **LeNet** model to classify our data, which we have already analyzed.
 
+LeNet Model:
 ![lenet](https://user-images.githubusercontent.com/34197007/80314970-135fbc80-87f5-11ea-83e2-cbd0aa4857a3.png)
 
+GoogleNet model:
 ![googlenet](https://user-images.githubusercontent.com/34197007/80314966-122e8f80-87f5-11ea-85eb-7a7f424a21ef.png)
-
+AlexNet model:
 ![alexnet](https://user-images.githubusercontent.com/34197007/80314986-16f34380-87f5-11ea-8dd6-8b2598781097.jpeg)
 
 - We first import the ***Flatten*** library to flatten our data, and ***Conv2D*** and ***MaxPooling2D*** library for the convolutional and pooling layers. 
@@ -129,6 +132,8 @@ There are various pre-built **CNN architectures** such as LeNet, AlexNet, ZFNet,
 
 `  model.add(Conv2D(15, (3, 3), activation='relu'))`
  ` model.add(MaxPooling2D(pool_size=(2, 2)))`
+ 
+ The summary of the model and the number of its corresponding parameters is:
  
  <img width="392" alt="summary" src="https://user-images.githubusercontent.com/34197007/80314978-15298000-87f5-11ea-9d6a-bf523a69eb56.PNG">
 
@@ -226,7 +231,11 @@ By using:
 we visualize our specific features filters.
 We use the **jet** cmap to highlight the different pixel values in our images. Colour red highlights pixels with high intensity and blue for low. The result is:
 
+Filters of the first convolutional layer:
+
 <img width="393" alt="filtersconv1" src="https://user-images.githubusercontent.com/34197007/80314964-1195f900-87f5-11ea-9c07-d7bf181bb723.PNG">
+
+Filters of the second convolutional layer:
 
 <img width="431" alt="filtersconv2" src="https://user-images.githubusercontent.com/34197007/80314965-1195f900-87f5-11ea-825b-11bb74fcd695.PNG">
 
