@@ -1,0 +1,179 @@
+# README
+
+In this tutorial we are going to discuss the main aspects regarding Convolutional Neural Networks (CNN), and show a code demonstration of it. I will use Google collab the visual representation rather than Jupyter lab, since it offers free computational power.
+
+The code was part of the  **"Complete Self-Driving Car Course - Applied Deep Learning" course of Udemy.**
+
+## Convolutional Neural Networks (CNN)
+
+### Why CNN?
+CNNs are perhaps the most powerful Deep Learning architecture since they are used for various applications such as Face Recognition, Object Detection or power self driving cars.
+
+They are known to process data with known grid like topology, making image recognition computationally manageable.
+
+Two important advantages of CNNs are that they use spatial data for their benefit and require less parameters than regular ANNs. 
+
+Also, in an RGB 72x72=5184 image, RGB pixels image would correspond to 15552 different weights for each node. Since it is a difficult image to learn, we would also need to increase the number of hidden layers as well as the nodes. All these increase the complexity and thus the computational power needed to train the models, making regular ANNs ineffecient. Whereas in CNN, every node is only connected to a small (instead of entire) region of the input volume.
+
+Last, regular NNs often have overfitting problems, whereas the pooling layers of CNN help to avoid overfittingThat's where CNN come into play and that would need a lot of computing power. This is the reason and the motivation behind convolutional neural networks, that can be trained on much larger and colourful images.
+
+### CNN Architecture
+
+CNN takes the input (usually the value of the intensity of pixels), runs through convolution, pooling  and fully connected layers, and then pass it through a softmax activation function to classify the input.
+
+**1. Convolution layer:**
+
+The purpose of the convolutional layer is to extract and learn specific image features that can help classify the image. The feature detector is the kernel matrix (or convolution filter) of small dimensionality (eg 3 by 3) that shifts through the image (known as stride). Stride=1 means the kernel shifts one pixel at a time. The bigger the stride, the smaller the corresponding feature map. Feature map contains specific feature of interest preserved and extracted from the original image. Different kernel matrices or filters are able to detect different features (eg edges, diagonal lines, crosses, curves etc). And the more the kernels we run through the image, the more features we learn. Combining all the different features maps (depth) from the different kernels, and passing them through an activation function, gives us the final output of the convolutional layer: filtered images that are then passed on to the pooling layer. 
+
+An example of the original image, and its corresponding necessary kernel matrices is the above image, that shows that for an "X" image, the filters of up-diagonal, down-diagonal and X are needed:
+
+For 2d images (grayscale) we only have one kernel. However for 3d images (depth=2 => RGB, 3 channels), the kernel also must be a depth of 3
+
+The value of the kernel's weights are learnt during the training process through gradient descent algorithms to minimize the error, in order to learn features of the image. The area that a kernel matrix takes on the original image, is known as receptor field. 
+- Every cell of the receptor field is multiplied by the corresponding kernel matrix cell. 
+- We take the sum of these values and divide it with the number of matrix's cells to take the average. 
+- The result is being shown in the feature map.
+- The combination of the feature maps are passed from a **Relu activation function**, accounting for non-linearity, which empirically showed to perform better than sigmoid or tanh, inspired from biological processes. The reason is that sigmoid (and tanh) activation function has the vanishing gradient problem, since its derivative will only be between 0 - 0.25, resulting in very slow convergence of the weights during the gradient descent method. Whereas the derivative of ReLu function is 0-1.
+
+
+**2. Pooling layer:**
+
+The pooling layer shrinks the filtered images stack by reducing the dimensionality of the representation of each feature map, reducing the number of parameters and thus the computational complexity of the model, but preserving the most important information.
+
+Pooling helps to avoid overfitting using a pooling operation (sum, average, max). For example the max pooling uses a kernel of eg 2 by 2 dimensions, and convolves it through the feature map. In every stride (of 2), it keeps the maximum value of the kernel, thus of its corresponding local neighborhood. That way it scales (down) into an abstracted form of the original feature map, preserving the general pattern.
+
+The deeper the convolution layer is, the more complex and sophisticated the feature it learns, and more unrecognizable (for us) as an image, however it also contains more important information about that specific feature it investigates. Thus, the first block of convolution layer may learn edges, corners etc, whereas the last block may learn noses and ears. The same apply for the filters: the deeper, the more complex and sophisticated the filters (kernels) are, since they combine previous information at each step.
+
+A nice tool to play with a CNN is: [https://www.cs.ryerson.ca/~aharley/vis/conv/flat.html](https://www.cs.ryerson.ca/~aharley/vis/conv/flat.html)
+
+**3. Fully Connected layers:**
+
+The first part of convolutional and pooling layers is responsible for features extraction, whereas the second part of the fully connected (FC) layers is responsible for the classification.
+
+The FC layers work the same way as the multi-layer perceptron-based NN. Thus its difference is that each node is connected with all the nodes of the previous layers. It takes as input the feature matrices of the convolutional layers, but flatten so that they are just one array.
+
+Overall:
+- Random values are being assigned as parameters (weights) for all the nodes of the convolutional, pooling and FC layers.
+- Then, the input image passes through the CNN, scaled down for feature extraction and based on them the image is classified.
+- Based on if the classification is correct, the cross entropy  is calculated and in order to minimize the error, the parameters (weights and biases in FC, values of the filter matrix in convolutional layers) are recalculated using backpropagation (and gradient descent). However the filters, kernel size, the depth of the convolutional and pooling layers have to be predefined.
+
+
+## Code Implementation
+
+We will use the MNIST dataset to show an example of how to classify a handwritten image using Convolutional Neural Network. 
+
+***Note:** To make use of google colab free gpu select Runtime > Change Runtime type > GPU.*
+
+### 1. Prepare the dataset:
+
+To prepare the data we first normalize them and do one hot encoding on the labels. To see more on how we do that, checkout the previous tutorial of MNIST NN.
+
+The difference however is that this time we don't flatten the images into one array, since we feed them as whole images to the CNN. We also add depth of one to illustrate that we are handling one channel image (grayscale):
+
+`X_train = X_train.reshape(60000, 28, 28, 1)`
+`X_test = X_test.reshape(10000, 28, 28, 1)`
+
+### 2. Define the LeNet model:
+
+There are various pre-built CNN architectures such as LeNet, AlexNet, ZFNet, GoogleNet. We will make use of LeNet model to classify our data, which we have already analyzed.
+
+- We first import the ***Flatten*** library to flatten our data, and ***Conv2D*** and ***MaxPooling2D*** library for the convolutional and pooling layers. 
+
+- We create a ***Sequential*** model. 
+
+`  model = Sequential()`
+
+- We ***add a Conv2D layer*** of 30 filters which are enough to classify our data and not very demanding regarding computational power. Each filter is a 5x5 kernel matrix with a ***stride*** of 1 (default). It takes as input images of 28x28x1. And we use the ***Relu activation function***. Thus in total we have 780 adjustable parameters (each kernel matrix has 25 values (5x5) and 1 bias. Considering 30 filters, this adds up to 780). We will not include ***padding*** (default), which increases the size of our initial matrix with cells of 0s to preserve dimensionality. The reason is that MNIST dataset contains centered images, thus we are not interested in the outer edges of the images. This will result in 24x24 filters.
+
+`model.add(Conv2D(30, (5, 5), input_shape=(28, 28, 1), activation='relu'))`
+
+- We add a ***MaxPooling2D*** with a ***pool_size*** of 2x2, to define the neighborhood. The 30 24x24 filters will be scaled down to 12x12. Thus images size of (12, 12, 30).
+
+`  model.add(MaxPooling2D(pool_size=(2, 2))`
+
+- We add another pair of convolutional layer of 15 3x3 filters with a Relu activation function and pooling layers of 2x2. Each filter is going to be scaled down to (10, 10, 15) because of conv2D. And each feature map is going to be scaled down to (5, 5, 15) because of pooling. Although we have to deal with more parameters than in the previous pair, since we do the same for each of the 30 previous feature maps. In total 15*30*3*3+15 (biases) = 4065 parameters. Thus it demands even more computational power. 
+
+`  model.add(Conv2D(15, (3, 3), activation='relu'))`
+ ` model.add(MaxPooling2D(pool_size=(2, 2)))`
+
+- Then we **flatten** the image to be 1-dimensional to be fed to the FC layer (multi-layer perceptron) by taking the previous (5, 5, 15) and making it (375, 1).
+
+`model.add(Flatten())`
+    
+- For the **FC layer**, we add a dense layer of a number of nodes arbitrary selected (we chose 500, more than that would need more computational power, less would be less accurate), and Relu activation function.
+
+`model.add(Dense(500, activation='relu'))`
+
+- For the **output layer** we add a dense layer with the same number of nodes, as the number of classes, and activation function the **softmax**.
+
+### 3. Compile the Neural Network:
+
+We compile it using the **Adam** optimizer with **learning rate** 0.1, **categorical cross entropy** as a loss function and **accuracy** as metric.
+
+`model.compile(Adam(lr = 0.01), loss='categorical_crossentropy', metrics=['accuracy'])`
+
+### 4. Train the Neural Network:
+
+- We fit the model with 10 **epochs**, **validation set** of 0.1, **batch size** of 400, and **verbose** and **shuffle** equal to true.
+
+`history=model.fit(X_train, y_train, epochs=10,  validation_split = 0.1, batch_size = 400, verbose = 1, shuffle = 1)`
+
+### 5. Plot the accuracy and loss graphs:
+
+We notice much higher accuracy and less loss using CNN than the regular Neural Network, but also that the accuracy for the validation and the training set is almost the same. However we notice some degree of overfitting, since we used 500 nodes. Whenever validation error is higher than the training error, would mean start overfitting.
+
+### 6. Predict new unlabelled data:
+
+Our test accuracy is 98.8% which is highly satisfying.
+
+To test our NN on an arbitrary unlabelled image, we take an image of the digit 2:
+
+We pre-process it to be suitable to be fed in our CNN:
+
+And we predict its class:
+
+`print("predicted digit: "+str(model.predict_classes(img)))`
+
+As a class of 2, which is correct.
+
+### 7. Fix overfitting:
+
+In order to fix overfitting, we add another one layer called **Dropout layer** which sets a fraction rate of input units to zero at each update during training. 
+
+`from keras.layers import Dropout`
+
+That way, every time the network updates parameters to minimize the error (towards gradient descent), it randomly selects some nodes to be turned off and no longer communicate information along the network. The various combination of nodes that are selected each time, helps the worse performing nodes to fix their parameters, rather than enforce the better performing nodes, reducing that way generalization error and preventing overfitting. 
+
+This layer only occurs in the training process, while during the test process we use all of the nodes of the network to combine all of the nodes' independent learning.
+
+Usually Dropout layers are placed in between layers of high number of parameters because are more highly to overfit. Thus we place it in between the FC layers with a fraction rate of 0.5 which is the recommended.
+
+`model.add(Dropout(0.5))`
+
+### 8. Run the updated CNN again:
+
+With the introduction of the Dropout layer, we can see improvement of the network's accuracy:
+
+### 9. Visualize the feature maps of the filters:
+
+In order to better understand in what specific feature each filter focus, we make use of the Model class API:
+
+`from keras.models import Model`
+
+The Model API allows us to define a model (similarly to the sequential model) by instantiating layers of pre-trained models so that we can to reuse sections of them. We are goint to use it to **visualize** the outputs of our convolutional layers. We set as input the input of the first convolutional layer, whereas as output, the output of the first and the second convolutional layer respectively.
+
+`layer1 = Model(inputs=model.layers[0].input, outputs=model.layers[0].output)`
+`layer2 = Model(inputs=model.layers[0].input, outputs=model.layers[2].output)`
+
+By using:
+
+`plt.figure(figsize=(10, 6))
+	for i in  range(30):
+	plt.subplot(6, 5, i+1)
+	plt.imshow(visual_layer1[0, :, :, i], cmap=plt.get_cmap('jet'))
+	plt.axis('off')`
+
+we visualize our specific features filters.
+We use the **jet** cmap to highlight the different pixel values in our images. Colour red highlights pixels with high intensity and blue for low. The result is:
+
+We can clearly see now that the deeper we go, the more abstract the filter images look like.
