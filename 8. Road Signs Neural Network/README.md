@@ -6,6 +6,8 @@ I will use Google collab for the visual representation rather than Jupyter lab, 
 The code was part of the  **"Complete Self-Driving Car Course - Applied Deep Learning" course of Udemy.**
 
 
+
+
 ## Preprocessing
 
 The road signs are going to be classified into 43 different classes. For this, we will use a dataset which is smaller than the MNIST dataset, contains more classes and larger images of various road signs. The dataset can be found in: 
@@ -17,6 +19,8 @@ and we clone it in our code:
 `git clone`
 
 First we will need to preprocess the data in order to be suitable to be fed into our LeNet CNN.
+
+![lenet](https://user-images.githubusercontent.com/34197007/80530051-ba308e00-8998-11ea-91f9-25927c2171bb.png)
 
 The dataset contains **pickle** files which are used to serialize (converts all the objects to character stream which is often more convenient to store and transfer) the data before save them on disk and deserialize (unpickle) them when is needed. 
 
@@ -54,14 +58,19 @@ And then we treat it similarly to the MNIST dataset:
 
 A sample of the dataset's images can be seen below:
 
+<img width="249" alt="signs" src="https://user-images.githubusercontent.com/34197007/80530029-b56bda00-8998-11ea-85ac-e420c8c03f70.png">
+
 We can see that the distribution of the dataset's images is much less uniform than of the MNIST dataset, which may result in less accurate result:
 
+<img width="549" alt="distribution" src="https://user-images.githubusercontent.com/34197007/80530042-b7ce3400-8998-11ea-8db3-4c3793943526.PNG">
 
 ## I. Preprocess the images:
 
 The road signs images are far more difficult challenge to face than the ones of the MNIST dataset since there is a high variety of images with different background, colours, conditions etc. And that's why we are going to preprocess the dataset.
 
 For the better visualization of the preprocess, we will focus on this image:
+
+<img width="172" alt="gostraightright" src="https://user-images.githubusercontent.com/34197007/80530047-b8ff6100-8998-11ea-915e-c41b133b2930.PNG">
 
 
 ### 1. Convert to grayscale:
@@ -70,11 +79,17 @@ First we will convert the images to a grayscale, since the colors are not very i
 
 `img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)`
 
+<img width="254" alt="grayscale" src="https://user-images.githubusercontent.com/34197007/80530049-b8ff6100-8998-11ea-8d02-f72caffec64b.PNG">
+
 ### 2.  Histogram Equalization:
+
+![histogramequalization](https://user-images.githubusercontent.com/34197007/80530050-b997f780-8998-11ea-9942-5233fa16ead7.jpg)
 
 Histogram Equalization aims to standardize the lighting of our images, by enhancing their contrast, making them all have similar lighting, which can help in feature extraction. 
 
 `img = cv2.equalizeHist(img)`
+
+<img width="257" alt="equalize" src="https://user-images.githubusercontent.com/34197007/80530043-b866ca80-8998-11ea-864f-919f82096ca2.PNG">
 
 ### 3. Normalization:
 
@@ -87,6 +102,8 @@ To apply these 3 preprocessing procedures, we will make use of `map` function wh
 `X_train = np.array(list(map(preprocess, X_train)))`
 
 Then we just display a random image to verify that has gone through the process:
+
+<img width="264" alt="preprocess" src="https://user-images.githubusercontent.com/34197007/80530027-b56bda00-8998-11ea-8eb1-25b732ab0b29.PNG">
 
 ### 5. Add depth dimension:
 
@@ -110,14 +127,16 @@ We define a **Sequential** model.
 
 ### 2. Add the convolutional and pooling layers:
 
-- We add a **convolutional layer** of *60 filters of 5x5 size* (kernel matrix) that have as *input* the preprocessed images of (32, 32, 1) size, and we set *relu* as the activation function. The result are 60 filters of 28x28 size. Since we use 5x5 filters with stride of 1, that's why we lose 2 pixels in each dimension, but this does not affect us since all the important information is around the center of the image. The borders do not contain significant features (otherwise we would use padding). Ultimately, we end up with 60*5*5+60 (biases) = 1560 adjustable parameters.
+- We add a **convolutional layer** of *30 filters of 5x5 size* (kernel matrix) that have as *input* the preprocessed images of (32, 32, 1) size, and we set *relu* as the activation function. The result is 30 filters of 28x28 size. Since we use 5x5 filters with stride of 1, that's why we lose 2 pixels in each dimension, but this does not affect us since all the important information is around the center of the image. The borders do not contain significant features (otherwise we would use padding). Ultimately, we end up with 30*5*5+30 (biases) = 780 adjustable parameters.
 
 `model.add(Conv2D(30, (5, 5), input_shape=(32, 32, 1), activation='relu'))`
 
 
-- We add a **max pooling layer**, of *2x2 size*. The result are 12x12 filters of depth 60.
+- We add a **max pooling layer**, of *2x2 size*. The result are 12x12 filters of depth 30.
 
-`model.add(MaxPooling2D(pool_size=(2, 2)))`
+`model.add(Max2D(pool_size=(2, 2)))`
+
+<img width="368" alt="pooling" src="https://user-images.githubusercontent.com/34197007/80531328-bb62ba80-899a-11ea-859b-40f80a3aa08f.PNG">
 
 - We add **another pair of convolutional and pooling layer**. The second convolutional layer consists of 15 filters of 3x3 size, thus 30*15*3*3 + 15 (biases) = 4065 parameters. The second max pooling layer is again size of 2x2. The result are 6x6 filters of depth 15.
 
@@ -153,15 +172,24 @@ We **compile** the model with Adam optimizer, categorical cross entropy as loss 
 
 Running the code gives us this summary:
 
+<img width="391" alt="summary" src="https://user-images.githubusercontent.com/34197007/80530032-b6047080-8998-11ea-8740-5e4d2ec2c6da.PNG">
+
 ### 6. Train the model:
 
 We train the model with **10 epochs**,  **batch size of 400**, we set the validation set and set **verbose and shuffle to true**.
 
 `history = model.fit(X_train, y_train, batch_size=400, epochs=10, validation_data=(X_val, y_val), shuffle = 1, verbose = 1)`
 
+<img width="791" alt="fit" src="https://user-images.githubusercontent.com/34197007/80530044-b866ca80-8998-11ea-874e-970d7933bdcd.PNG">
+
+
 ### 7. Analyze how the network performs:
 
 - We plot the accuracy and loss function:
+
+<img width="285" alt="accuracy" src="https://user-images.githubusercontent.com/34197007/80530039-b7359d80-8998-11ea-82da-25383240101d.PNG">
+
+<img width="292" alt="loss" src="https://user-images.githubusercontent.com/34197007/80530015-b270e980-8998-11ea-8eeb-e49b8b340758.PNG">
 
 We notice high loss for the training and validation set and relatively not that much high accuracies, implying that the model is not working effectively and that it overfitted our data (validation accuracy lower than training accuracy)
 
@@ -169,7 +197,7 @@ We notice high loss for the training and validation set and relatively not that 
 
 This perhaps is due to the non-uniform dataset, comparing to MNIST.
 
-Thus, we must fine-tune our model to improve its performance.
+Thus, we must **fine-tune** our model to improve its performance.
 
 ## III. Fine-tune the Neural Network:
 
@@ -177,7 +205,7 @@ We have to tackle the low accuracy and overfitting issues.
 
 Each dataset must be treated differently thus it is always good to make use of trial and error to modify the parameters. Some good modifications are:
 
-### 1. Adam's initiallearning rate adjustment:
+### 1. Adam's initial learning rate adjustment:
 
 Adam optimizer uses individual adaptive learning rates, however we must define a good initial learning rate (lr). High lr may lead to low accuracy, whereas low lr helps the network learn more effectively for complex models.
 
@@ -187,11 +215,15 @@ For initial learning rate 0.001 and by plotting the losses and accuracies again,
 
 We double the number of filters in the convolutional layers (from 30 to 60 and from 15 to 30), resulting in this summary:
 
+<img width="388" alt="summary2" src="https://user-images.githubusercontent.com/34197007/80530033-b6047080-8998-11ea-9578-a86f56357bb2.PNG">
+
 After plotting loss and accuracy graphs, we notice better performance in the training, validation and test accuracy, however still overfitting occurs.
 
 ### 3. Add extra convolutional layers:
 
 This will help extract features more effectively and improve accuracy. We add two extra convolutional layers after the previous ones, with the same dimensions (60 and 30). That way, even though each convolutional layer introduces new extra parameters, the total number of parameters decreased since the FC layers had less input parameters as we see in the summary:
+
+<img width="389" alt="summary3" src="https://user-images.githubusercontent.com/34197007/80530034-b6047080-8998-11ea-9986-202bcbb296ab.PNG">
 
 The accuracy increased even more, as well as the overfitting.
 
@@ -206,6 +238,8 @@ Thus, the model seems accurate enough to classify non-labelled new data.
 ### 5. Data Augmentation:
 
 This technique generates new data to be used during our model's training process. It is done by modifying the images of the dataset to look like new images, like rotating, flipping, de-colorizing, changing background etc.
+
+![dataaugmentation](https://user-images.githubusercontent.com/34197007/80530040-b7359d80-8998-11ea-8196-c418fda5eddb.png)
 
 We add these transformations in the preprocessing section.
 
@@ -234,6 +268,8 @@ We create new data of batch size 15, by:
 
 We plot some of these images to see the difference from our initial dataset:
 
+<img width="608" alt="dataaugmtraining" src="https://user-images.githubusercontent.com/34197007/80530041-b7ce3400-8998-11ea-8355-e859fee2d0be.PNG">
+
 Then we modify the training of our model to train our augmented data instead of the initial data.
 
 `history = model.fit_generator(datagen.flow(X_train, y_train, batch_size=50),
@@ -246,6 +282,10 @@ Then we modify the training of our model to train our augmented data instead of 
 Last, we delete the extra Dropout layer to decrease the gap between validation and training accuracy, since the generator took action for the overfitting.
 
 Running all the cells again, we notice a very good accuracy of our final model.
+
+<img width="283" alt="modifiedaccuracy" src="https://user-images.githubusercontent.com/34197007/80530018-b43aad00-8998-11ea-9fe1-062698110ee7.PNG">
+
+<img width="294" alt="modifiedloss" src="https://user-images.githubusercontent.com/34197007/80530021-b43aad00-8998-11ea-989f-0301b3e814fc.PNG">
 
 ## IV. Test the model to new unlabelled data:
 
@@ -262,7 +302,11 @@ After modifying our model to improve the accuracy and avoid overfitting, we will
 
 We feed it this image:
 
+<img width="253" alt="testimage" src="https://user-images.githubusercontent.com/34197007/80530036-b69d0700-8998-11ea-8965-4b583e139a24.PNG">
+
 We process it to be fed to our model:
+
+<img width="186" alt="testpreprocessimage" src="https://user-images.githubusercontent.com/34197007/80530038-b7359d80-8998-11ea-9746-8c76482742bf.PNG">
 
 And we print its prediction. We notice that after the modifications, our model correctly classifies the image. 
 
