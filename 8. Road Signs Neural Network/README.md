@@ -8,7 +8,7 @@ The code was part of the  **"Complete Self-Driving Car Course - Applied Deep Lea
 
 
 
-## Preprocessing
+## I. Road Sign Dataset Examination
 
 The road signs are going to be classified into 43 different classes. For this, we will use a dataset which is smaller than the MNIST dataset, contains more classes and larger images of various road signs. The dataset can be found in: 
 
@@ -43,18 +43,31 @@ And then we treat it similarly to the MNIST dataset:
 
 `  
   num_of_samples=[]
+  
   cols = 5
+  
   num_classes = 43
+  
   fig, axs = plt.subplots(nrows=num_classes, ncols=cols, figsize=(5,50))
+  
   fig.tight_layout()
+  
   for i in range(cols):
+  
       for j, row in data.iterrows():
+      
         x_selected = X_train[y_train == j]
+        
         axs[j][i].imshow(x_selected[random.randint(0,(len(x_selected) - 1)), :, :], cmap=plt.get_cmap('gray'))
+        
         axs[j][i].axis("off")
+        
         if i == 2:
-          axs[j][i].set_title(str(j) + " - " + row["SignName"])
-          num_of_samples.append(len(x_selected))`
+        
+            axs[j][i].set_title(str(j) + " - " + row["SignName"])
+        
+            num_of_samples.append(len(x_selected))
+            `
 
 A sample of the dataset's images can be seen below:
 
@@ -64,7 +77,7 @@ We can see that the distribution of the dataset's images is much less uniform th
 
 <img width="549" alt="distribution" src="https://user-images.githubusercontent.com/34197007/80530042-b7ce3400-8998-11ea-8db3-4c3793943526.PNG">
 
-## I. Preprocess the images:
+## II. Preprocess the images:
 
 The road signs images are far more difficult challenge to face than the ones of the MNIST dataset since there is a high variety of images with different background, colours, conditions etc. And that's why we are going to preprocess the dataset.
 
@@ -117,7 +130,7 @@ Last, we must apply one hot encoding to the labels of our datasets:
 `y_train = to_categorical(y_train, 43)`
 
 
-## II. Design the Neural Network:
+## III. Design the Neural Network:
 
 We will use the LeNet Neural Network for classifying the images.
 
@@ -199,7 +212,7 @@ This perhaps is due to the non-uniform dataset, comparing to MNIST.
 
 Thus, we must **fine-tune** our model to improve its performance.
 
-## III. Fine-tune the Neural Network:
+## IV. Fine-tune the Neural Network:
 
 We have to tackle the low accuracy and overfitting issues.
 
@@ -287,7 +300,7 @@ Running all the cells again, we notice a very good accuracy of our final model.
 
 <img width="294" alt="modifiedloss" src="https://user-images.githubusercontent.com/34197007/80530021-b43aad00-8998-11ea-989f-0301b3e814fc.PNG">
 
-## IV. Test the model to new unlabelled data:
+## V. Test the model to new unlabelled data:
 
 After modifying our model to improve the accuracy and avoid overfitting, we will feed it with new unlabelled images from the internet to validate its efficiency. Some sources of random images can be found here:
 -   [https://c8.alamy.com/comp/G667W0/road-sign-speed-limit-30-kmh-zone-passau-bavaria-germany-G667W0.jpg](https://c8.alamy.com/comp/G667W0/road-sign-speed-limit-30-kmh-zone-passau-bavaria-germany-G667W0.jpg)
