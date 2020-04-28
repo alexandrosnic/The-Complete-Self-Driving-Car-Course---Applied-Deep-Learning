@@ -18,11 +18,7 @@ and we clone it in our code:
 
 `git clone`
 
-First we will need to preprocess the data in order to be suitable to be fed into our LeNet CNN.
-
-![lenet](https://user-images.githubusercontent.com/34197007/80530051-ba308e00-8998-11ea-91f9-25927c2171bb.png)
-
-The dataset contains **pickle** files which are used to serialize (converts all the objects to character stream which is often more convenient to store and transfer) the data before save them on disk and deserialize (unpickle) them when is needed. 
+- The dataset contains **pickle** files which are used to serialize (converts all the objects to character stream which is often more convenient to store and transfer) the data before save them on disk and deserialize (unpickle) them when is needed. 
 
 We open the train, validation and test pickle files for reading in binary format:
 
@@ -37,11 +33,11 @@ From these, we only need the `features` and `labels` values.
 
 The train set contains almost 35000 RGB (3 channels) images of 32x32 size, the validation set 4400 and the test set 12600.
 
-We use `assert` just to check potential errors before starting the process.
+- We use `assert` just to check potential errors before starting the process.
 
 We make use of `pandas` library which is a great data analysis tool to manipulate the `signnames.csv` file.
 
-And then we treat it similarly to the MNIST dataset:
+- And then we treat it similarly to the MNIST dataset:
 
 ```  
   num_of_samples=[]
@@ -63,13 +59,15 @@ A sample of the dataset's images can be seen below:
 
 <img width="249" alt="signs" src="https://user-images.githubusercontent.com/34197007/80530029-b56bda00-8998-11ea-85ac-e420c8c03f70.png">
 
-We can see that the distribution of the dataset's images is much less uniform than of the MNIST dataset, which may result in less accurate result:
+- We can see that the distribution of the dataset's images is much less uniform than of the MNIST dataset, which may result in less accurate result:
 
 <img width="549" alt="distribution" src="https://user-images.githubusercontent.com/34197007/80530042-b7ce3400-8998-11ea-8db3-4c3793943526.PNG">
 
 ## II. Preprocess the images:
 
-The road signs images are far more difficult challenge to face than the ones of the MNIST dataset since there is a high variety of images with different background, colours, conditions etc. And that's why we are going to preprocess the dataset.
+The road signs images are far more difficult challenge to face than the ones of the MNIST dataset since there is a high variety of images with different background, colours, conditions etc. And that's why we are going to preprocess the dataset, before feeding them into our LeNet CNN.
+
+![lenet](https://user-images.githubusercontent.com/34197007/80530051-ba308e00-8998-11ea-91f9-25927c2171bb.png)
 
 For the better visualization of the preprocess, we will focus on this image:
 
@@ -254,7 +252,7 @@ datagen = ImageDataGenerator(width_shift_range=0.1,
                             zoom_range=0.2,
                             shear_range=0.1,
                             rotation_range=10.)
-                            ```
+```
 
 The data generator is not saved in the memory but instead it only generates these augmented images when requested (during the training process and that's why is slower), making it computationally more efficient and less memory intensive.
 
@@ -283,7 +281,7 @@ history = model.fit_generator(datagen.flow(X_train, y_train, batch_size=50),
                             steps_per_epoch=2000,
                             epochs=10,
                             validation_data=(X_val, y_val), shuffle = 1)
-                            ```
+```
 
 - steps per epoch accounts for the amount of batches the generator generates per epoch, i.e. the total data per epoch (size of augmented dataset). Thus with a batch size of 50, and 2000 steps, we have 50*2000=100,000 size dataset.
 
