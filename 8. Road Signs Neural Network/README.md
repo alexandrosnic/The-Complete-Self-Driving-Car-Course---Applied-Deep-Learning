@@ -26,8 +26,10 @@ The dataset contains **pickle** files which are used to serialize (converts all 
 
 We open the train, validation and test pickle files for reading in binary format:
 
-`with open('german-traffic-signs/train.p', 'rb') as f:
-    train_data = pickle.load(f)`
+```
+with open('german-traffic-signs/train.p', 'rb') as f:
+    train_data = pickle.load(f)
+    ```
 
 From these, we only need the `features` and `labels` values.
 
@@ -41,7 +43,7 @@ We make use of `pandas` library which is a great data analysis tool to manipulat
 
 And then we treat it similarly to the MNIST dataset:
 
-`  
+```  
   num_of_samples=[]
   cols = 5  
   num_classes = 43  
@@ -55,7 +57,7 @@ And then we treat it similarly to the MNIST dataset:
         if i == 2:        
             axs[j][i].set_title(str(j) + " - " + row["SignName"])        
             num_of_samples.append(len(x_selected))
-            `
+            ```
 
 A sample of the dataset's images can be seen below:
 
@@ -115,6 +117,7 @@ Before feeding these images to our CNN, we must first add the depth dimension (o
 ### 6. One hot endocing:
 
 Last, we must apply one hot encoding to the labels of our datasets:
+
 `y_train = to_categorical(y_train, 43)`
 
 
@@ -244,12 +247,14 @@ This technique generates new data to be used during our model's training process
 
 We add these transformations in the preprocessing section.
 
-`from keras.preprocessing.image import ImageDataGenerator
+```
+from keras.preprocessing.image import ImageDataGenerator
 datagen = ImageDataGenerator(width_shift_range=0.1,
                             height_shift_range=0.1,
                             zoom_range=0.2,
                             shear_range=0.1,
-                            rotation_range=10.)`
+                            rotation_range=10.)
+                            ```
 
 The data generator is not saved in the memory but instead it only generates these augmented images when requested (during the training process and that's why is slower), making it computationally more efficient and less memory intensive.
 
@@ -273,10 +278,12 @@ We plot some of these images to see the difference from our initial dataset:
 
 Then we modify the training of our model to train our augmented data instead of the initial data.
 
-`history = model.fit_generator(datagen.flow(X_train, y_train, batch_size=50),
+```
+history = model.fit_generator(datagen.flow(X_train, y_train, batch_size=50),
                             steps_per_epoch=2000,
                             epochs=10,
-                            validation_data=(X_val, y_val), shuffle = 1)`
+                            validation_data=(X_val, y_val), shuffle = 1)
+                            ```
 
 - steps per epoch accounts for the amount of batches the generator generates per epoch, i.e. the total data per epoch (size of augmented dataset). Thus with a batch size of 50, and 2000 steps, we have 50*2000=100,000 size dataset.
 
