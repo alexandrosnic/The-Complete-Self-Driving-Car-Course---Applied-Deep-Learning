@@ -107,11 +107,15 @@ The difference however is that this time we don't flatten the images into one ar
 There are various pre-built **CNN architectures** such as LeNet, AlexNet, ZFNet, GoogleNet. We will make use of **LeNet** model to classify our data, which we have already analyzed.
 
 LeNet Model:
+
 ![lenet](https://user-images.githubusercontent.com/34197007/80314970-135fbc80-87f5-11ea-83e2-cbd0aa4857a3.png)
 
 GoogleNet model:
+
 ![googlenet](https://user-images.githubusercontent.com/34197007/80314966-122e8f80-87f5-11ea-85eb-7a7f424a21ef.png)
+
 AlexNet model:
+
 ![alexnet](https://user-images.githubusercontent.com/34197007/80314986-16f34380-87f5-11ea-8dd6-8b2598781097.jpeg)
 
 - We first import the ***Flatten*** library to flatten our data, and ***Conv2D*** and ***MaxPooling2D*** library for the convolutional and pooling layers. 
@@ -175,7 +179,7 @@ Our test accuracy is 98.8% which is highly satisfying.
 
 To test our NN on an arbitrary unlabelled image, we take an image of the digit 2:
 
-![Handwritten-digit-2](https://user-images.githubusercontent.com/34197007/80314967-122e8f80-87f5-11ea-9d50-97e56f445d1d.png)
+![Handwritten-digit-2](https://user-images.githubusercontent.com/34197007/80314967-122e8f80-87f5-11ea-9d50-97e56f445d1d.png = 250x250)
 
 We pre-process it to be suitable to be fed in our CNN:
 
