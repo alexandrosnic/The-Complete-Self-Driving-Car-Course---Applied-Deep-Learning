@@ -29,7 +29,7 @@ We open the train, validation and test pickle files for reading in binary format
 ```
 with open('german-traffic-signs/train.p', 'rb') as f:
     train_data = pickle.load(f)
-    ```
+```
 
 From these, we only need the `features` and `labels` values.
 
@@ -57,7 +57,7 @@ And then we treat it similarly to the MNIST dataset:
         if i == 2:        
             axs[j][i].set_title(str(j) + " - " + row["SignName"])        
             num_of_samples.append(len(x_selected))
-            ```
+```
 
 A sample of the dataset's images can be seen below:
 
