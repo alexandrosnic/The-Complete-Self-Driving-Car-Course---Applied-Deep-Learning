@@ -181,8 +181,6 @@ To test our NN on an arbitrary unlabelled image, we take an image of the digit 2
 
 <img src="https://user-images.githubusercontent.com/34197007/80314967-122e8f80-87f5-11ea-9d50-97e56f445d1d.png" width="200" height="200" />
 
-![Handwritten-digit-2](https://user-images.githubusercontent.com/34197007/80314967-122e8f80-87f5-11ea-9d50-97e56f445d1d.png =250x250)
-
 We pre-process it to be suitable to be fed in our CNN:
 
 <img width="185" alt="preprocessDigit2" src="https://user-images.githubusercontent.com/34197007/80314976-1490e980-87f5-11ea-8b4f-a7d14e6e8cb9.PNG">
