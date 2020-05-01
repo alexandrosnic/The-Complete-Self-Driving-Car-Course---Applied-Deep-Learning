@@ -245,7 +245,7 @@ We train the model with 30 **epochs**, **batch size** of 100 and **verbose** and
 
 We plot the **loss** graph and we can clearly see the difference between using relu and elu activation function:
 
-
+<img width="579" alt="relueluloss" src="https://user-images.githubusercontent.com/34197007/80833908-e6921780-8bef-11ea-8bc3-6f53b5aadcc5.PNG">
 
 ## VIII. Establish the communication between the model with the simulator:
 
