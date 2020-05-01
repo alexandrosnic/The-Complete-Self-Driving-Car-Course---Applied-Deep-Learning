@@ -19,6 +19,36 @@ We will use a driving simulator built in Unity, provided for free by Udacity, th
 ## I. Polynomial Regression - Background
 While manually driving, we will continuously capture images that are going to be our training dataset and get the steering angle at each specific instance. Then these images will be fed into the Deep NN to help our model learn how to drive, by adjusting the steering angle, a method called **behavioral cloning**.
 
+<img width="672" alt="simulator" src="https://user-images.githubusercontent.com/34197007/80828096-04a64a80-8be5-11ea-84d5-6dd71b64d7ae.PNG">
+<img width="382" alt="summary" src="https://user-images.githubusercontent.com/34197007/80828099-05d77780-8be5-11ea-9240-7ea6dbd8f259.PNG">
+<img width="798" alt="trainvalidgen" src="https://user-images.githubusercontent.com/34197007/80828100-06700e00-8be5-11ea-9970-90129f091a4d.PNG">
+<img width="541" alt="trainvalidhisto" src="https://user-images.githubusercontent.com/34197007/80828101-0708a480-8be5-11ea-9d6c-5ab6b5a6be5a.PNG">
+<img width="895" alt="whatwilluse" src="https://user-images.githubusercontent.com/34197007/80828103-0708a480-8be5-11ea-87b8-da21ab0f3207.PNG">
+<img width="806" alt="yuvcolor" src="https://user-images.githubusercontent.com/34197007/80828105-07a13b00-8be5-11ea-84cd-4d4ac63b412d.PNG">
+<img width="807" alt="zoom" src="https://user-images.githubusercontent.com/34197007/80828108-07a13b00-8be5-11ea-873a-3659f655ff92.PNG">
+<img width="800" alt="augmentedimages" src="https://user-images.githubusercontent.com/34197007/80828110-08d26800-8be5-11ea-9caf-f967e6177db4.PNG">
+<img width="804" alt="brightness" src="https://user-images.githubusercontent.com/34197007/80828113-08d26800-8be5-11ea-9170-759e6e70cc2d.PNG">
+<img width="797" alt="comparison" src="https://user-images.githubusercontent.com/34197007/80828117-096afe80-8be5-11ea-88e0-a63f2b2a27d0.PNG">
+<img width="804" alt="cropcomparison" src="https://user-images.githubusercontent.com/34197007/80828119-0a039500-8be5-11ea-89b4-378534e50a4f.PNG">
+<img width="813" alt="csvsample" src="https://user-images.githubusercontent.com/34197007/80828121-0a039500-8be5-11ea-8667-5ce957949d07.png">
+![dataaugmentation](https://user-images.githubusercontent.com/34197007/80828122-0a9c2b80-8be5-11ea-8fc6-4a7abacb8d94.png)
+![elu](https://user-images.githubusercontent.com/34197007/80828124-0a9c2b80-8be5-11ea-9064-2379cf21cf78.jpg)
+<img width="275" alt="eluloss" src="https://user-images.githubusercontent.com/34197007/80828128-0b34c200-8be5-11ea-9291-42fee366ecca.PNG">
+<img width="799" alt="flip" src="https://user-images.githubusercontent.com/34197007/80828130-0b34c200-8be5-11ea-88d5-bd10a93f279f.PNG">
+<img width="802" alt="gaussianblur" src="https://user-images.githubusercontent.com/34197007/80828131-0bcd5880-8be5-11ea-8693-ca63a3e6abfb.PNG">
+<img width="285" alt="histogram" src="https://user-images.githubusercontent.com/34197007/80828132-0bcd5880-8be5-11ea-84cb-11c6dfaad6a5.PNG">
+<img width="286" alt="histogram2" src="https://user-images.githubusercontent.com/34197007/80828133-0bcd5880-8be5-11ea-8268-978fc08c3ae4.PNG">
+<img width="768" alt="imagesNN" src="https://user-images.githubusercontent.com/34197007/80828134-0c65ef00-8be5-11ea-8dbd-35f1f9ed9172.PNG">
+<img width="280" alt="increasedthreshold" src="https://user-images.githubusercontent.com/34197007/80828135-0c65ef00-8be5-11ea-881f-245b847a8b0f.PNG">
+<img width="531" alt="increasedthresholdtrainvalidhisto" src="https://user-images.githubusercontent.com/34197007/80828137-0cfe8580-8be5-11ea-876b-5b3f0a0afbfd.PNG">
+<img width="254" alt="NvidiaCNN" src="https://user-images.githubusercontent.com/34197007/80828139-0cfe8580-8be5-11ea-93b7-afce364f22b5.PNG">
+<img width="800" alt="pan" src="https://user-images.githubusercontent.com/34197007/80828140-0d971c00-8be5-11ea-858b-069213b1bd72.PNG">
+<img width="295" alt="reluloss" src="https://user-images.githubusercontent.com/34197007/80828141-0e2fb280-8be5-11ea-93c0-247b196125bf.PNG">
+<img width="801" alt="resizecomparison" src="https://user-images.githubusercontent.com/34197007/80828144-0e2fb280-8be5-11ea-8dc1-6f0174b699d6.PNG">
+![](/docs/Test.gif)
+
+![](/docs/Training.gif)
+
 After we define the model, we are going to test its performance in a completely different testing track, where the car will drive autonomously.
 
 For the implementation of Behavioral Cloning, we will make use of **Polynomial Regression** for the steering angle value. So far we used NN to classify our data. However with polynomial regression we are going to build a model to fit these data, and use it to predict the next most appropriate steering angle. To build the polynomial regression, we use Neural Networks to adjust the weights of the curve, in order to minimize the **mean square errors** and build a model that accurately fits the data.
