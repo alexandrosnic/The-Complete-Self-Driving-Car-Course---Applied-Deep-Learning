@@ -2,6 +2,8 @@
 
 ## Behavioral Cloning
 
+![](./docs/Test.gif)
+
 In this tutorial we are going to ultimately build an autonomous driving Neural Network model, trained from manual driving simulator, using the behavioral cloning technique.
 I will use Google collab for the visual representation rather than Jupyter lab, since it offers free computational power.
 
@@ -12,53 +14,33 @@ This tutorials will apply all of the concepts we dig into the previous tutorials
 - Feature Extraction using Convolutional Neural Networks
 - Continuous Regression
 
+<img width="895" alt="whatwilluse" src="https://user-images.githubusercontent.com/34197007/80828103-0708a480-8be5-11ea-87b8-da21ab0f3207.PNG">
+
 We will use a driving simulator built in Unity, provided for free by Udacity, that can be found here:
 
 [https://github.com/udacity/self-driving-car-sim](https://github.com/udacity/self-driving-car-sim)
 
+<img width="672" alt="simulator" src="https://user-images.githubusercontent.com/34197007/80828096-04a64a80-8be5-11ea-84d5-6dd71b64d7ae.PNG">
+
 ## I. Polynomial Regression - Background
+
 While manually driving, we will continuously capture images that are going to be our training dataset and get the steering angle at each specific instance. Then these images will be fed into the Deep NN to help our model learn how to drive, by adjusting the steering angle, a method called **behavioral cloning**.
 
-<img width="672" alt="simulator" src="https://user-images.githubusercontent.com/34197007/80828096-04a64a80-8be5-11ea-84d5-6dd71b64d7ae.PNG">
-<img width="382" alt="summary" src="https://user-images.githubusercontent.com/34197007/80828099-05d77780-8be5-11ea-9240-7ea6dbd8f259.PNG">
-<img width="798" alt="trainvalidgen" src="https://user-images.githubusercontent.com/34197007/80828100-06700e00-8be5-11ea-9970-90129f091a4d.PNG">
-<img width="541" alt="trainvalidhisto" src="https://user-images.githubusercontent.com/34197007/80828101-0708a480-8be5-11ea-9d6c-5ab6b5a6be5a.PNG">
-<img width="895" alt="whatwilluse" src="https://user-images.githubusercontent.com/34197007/80828103-0708a480-8be5-11ea-87b8-da21ab0f3207.PNG">
-<img width="806" alt="yuvcolor" src="https://user-images.githubusercontent.com/34197007/80828105-07a13b00-8be5-11ea-84cd-4d4ac63b412d.PNG">
-<img width="807" alt="zoom" src="https://user-images.githubusercontent.com/34197007/80828108-07a13b00-8be5-11ea-873a-3659f655ff92.PNG">
-<img width="800" alt="augmentedimages" src="https://user-images.githubusercontent.com/34197007/80828110-08d26800-8be5-11ea-9caf-f967e6177db4.PNG">
-<img width="804" alt="brightness" src="https://user-images.githubusercontent.com/34197007/80828113-08d26800-8be5-11ea-9170-759e6e70cc2d.PNG">
-<img width="797" alt="comparison" src="https://user-images.githubusercontent.com/34197007/80828117-096afe80-8be5-11ea-88e0-a63f2b2a27d0.PNG">
-<img width="804" alt="cropcomparison" src="https://user-images.githubusercontent.com/34197007/80828119-0a039500-8be5-11ea-89b4-378534e50a4f.PNG">
-<img width="813" alt="csvsample" src="https://user-images.githubusercontent.com/34197007/80828121-0a039500-8be5-11ea-8667-5ce957949d07.png">
-![dataaugmentation](https://user-images.githubusercontent.com/34197007/80828122-0a9c2b80-8be5-11ea-8fc6-4a7abacb8d94.png)
-![elu](https://user-images.githubusercontent.com/34197007/80828124-0a9c2b80-8be5-11ea-9064-2379cf21cf78.jpg)
-<img width="275" alt="eluloss" src="https://user-images.githubusercontent.com/34197007/80828128-0b34c200-8be5-11ea-9291-42fee366ecca.PNG">
-<img width="799" alt="flip" src="https://user-images.githubusercontent.com/34197007/80828130-0b34c200-8be5-11ea-88d5-bd10a93f279f.PNG">
-<img width="802" alt="gaussianblur" src="https://user-images.githubusercontent.com/34197007/80828131-0bcd5880-8be5-11ea-8693-ca63a3e6abfb.PNG">
-<img width="285" alt="histogram" src="https://user-images.githubusercontent.com/34197007/80828132-0bcd5880-8be5-11ea-84cb-11c6dfaad6a5.PNG">
-<img width="286" alt="histogram2" src="https://user-images.githubusercontent.com/34197007/80828133-0bcd5880-8be5-11ea-8268-978fc08c3ae4.PNG">
-<img width="768" alt="imagesNN" src="https://user-images.githubusercontent.com/34197007/80828134-0c65ef00-8be5-11ea-8dbd-35f1f9ed9172.PNG">
-<img width="280" alt="increasedthreshold" src="https://user-images.githubusercontent.com/34197007/80828135-0c65ef00-8be5-11ea-881f-245b847a8b0f.PNG">
-<img width="531" alt="increasedthresholdtrainvalidhisto" src="https://user-images.githubusercontent.com/34197007/80828137-0cfe8580-8be5-11ea-876b-5b3f0a0afbfd.PNG">
-<img width="254" alt="NvidiaCNN" src="https://user-images.githubusercontent.com/34197007/80828139-0cfe8580-8be5-11ea-93b7-afce364f22b5.PNG">
-<img width="800" alt="pan" src="https://user-images.githubusercontent.com/34197007/80828140-0d971c00-8be5-11ea-858b-069213b1bd72.PNG">
-<img width="295" alt="reluloss" src="https://user-images.githubusercontent.com/34197007/80828141-0e2fb280-8be5-11ea-93c0-247b196125bf.PNG">
-<img width="801" alt="resizecomparison" src="https://user-images.githubusercontent.com/34197007/80828144-0e2fb280-8be5-11ea-8dc1-6f0174b699d6.PNG">
-
-![](./docs/Test.gif)
-
-![](./docs/Training.gif)
 
 After we define the model, we are going to test its performance in a completely different testing track, where the car will drive autonomously.
 
 For the implementation of Behavioral Cloning, we will make use of **Polynomial Regression** for the steering angle value. So far we used NN to classify our data. However with polynomial regression we are going to build a model to fit these data, and use it to predict the next most appropriate steering angle. To build the polynomial regression, we use Neural Networks to adjust the weights of the curve, in order to minimize the **mean square errors** and build a model that accurately fits the data.
+
+<img width="768" alt="imagesNN" src="https://user-images.githubusercontent.com/34197007/80828134-0c65ef00-8be5-11ea-8dbd-35f1f9ed9172.PNG">
+
 
 ## II. Collect the data:
 
 We will use the Udacity's simulator to train our model. For this, we select **Training Mode** and we do 3 laps clockwise, and 3 laps anti-clockwise, driving in the middle so that our model will be generalized and won't be biased towards one direction.
 
 The data are generated from 3 cameras on the left, the middle and the right of the windshield, collecting data for the steering angle (in radians), speed, throttle and brake. Thus, a **csv** and a file containing **images** are created. Ultimately, each image feature (dataset) is associated with a label representing the **steering angle value**, from 1 (right) to -1 (left), making it a regression-based problem rather than classification.
+
+![](./docs/Training.gif)
 
 ## III. Examine the data:
 
@@ -76,6 +58,9 @@ Then we read the data:
 
 and we get this datasheet:
 
+<img width="813" alt="csvsample" src="https://user-images.githubusercontent.com/34197007/80828121-0a039500-8be5-11ea-8667-5ce957949d07.png">
+
+
 ### 3. Visualize the distribution:
 
 We **visualize** the distribution of the steering angles in a histogram, just to get an idea, and to determine the steps we need to do in the preprocessing section. We also set a **threshold** of 200 samples in each bin to make the distribution more uniform:
@@ -91,7 +76,11 @@ plt.plot((np.min(data['steering']), np.max(data['steering'])), (samples_per_bin,
 
 we get this histogram:
 
+<img width="285" alt="histogram" src="https://user-images.githubusercontent.com/34197007/80828132-0bcd5880-8be5-11ea-84cb-11c6dfaad6a5.PNG">
+
 and we notice that most of the values belong in the bar around the angle 0. In order to make a better use of the data, we will exclude the data that exceed the threshold, after we first **shuffle** them to make sure we still have data from every part of the track in our final dataset. We get the updated histogram which seems to be much more uniform:
+
+<img width="286" alt="histogram2" src="https://user-images.githubusercontent.com/34197007/80828133-0bcd5880-8be5-11ea-8268-978fc08c3ae4.PNG">
 
 ## IV. Create the training and validation datasets:
 
@@ -108,6 +97,8 @@ Then we **split** these two arrays into training and validation sets (of size 20
 `image_paths, steerings = load_img_steering(datadir + '/IMG', data)`
 
 We **visualize** them as histograms to evaluate the splitting:
+
+<img width="541" alt="trainvalidhisto" src="https://user-images.githubusercontent.com/34197007/80828101-0708a480-8be5-11ea-9d6c-5ab6b5a6be5a.PNG">
 
 We notice that both the training and the validation set are **equally balanced around the center** which means that both sets are uniform, and thus can be fed to the model we will build.
 
@@ -126,12 +117,15 @@ original_image = mpimg.imread(image)
 preprocessed_image = img_preprocess(original_image)
 ```
 
+<img width="797" alt="comparison" src="https://user-images.githubusercontent.com/34197007/80828117-096afe80-8be5-11ea-88e0-a63f2b2a27d0.PNG">
+
 ### 2. Crop the images:
 
 We **crop** the image to exclude irrelevant data such as the scenery and the car's hood:
 
 `    img = img[60:135,:,:]`
 
+<img width="804" alt="cropcomparison" src="https://user-images.githubusercontent.com/34197007/80828119-0a039500-8be5-11ea-89b4-378534e50a4f.PNG">
 
 ### 3. Change color format to YUV:
 
@@ -139,17 +133,25 @@ We will use the **YUV** color format (Y: brightness, UV: chromium to add color) 
 
 `    img = cv2.cvtColor(img, cv2.COLOR_RGB2YUV)`
 
+<img width="806" alt="yuvcolor" src="https://user-images.githubusercontent.com/34197007/80828105-07a13b00-8be5-11ea-84cd-4d4ac63b412d.PNG">
+
 ### 4. Gaussian Blur:
 
 We use **Gaussian Blur** (Gaussian kernel of 3x3) to smoothen the image and reduce noise:
 
 `    img = cv2.GaussianBlur(img,  (3, 3), 0)`
 
+<img width="802" alt="gaussianblur" src="https://user-images.githubusercontent.com/34197007/80828131-0bcd5880-8be5-11ea-8693-ca63a3e6abfb.PNG">
+
+
 ### 5. Resize the images:
 
 We **resize** the image since it helps for faster computations (smaller images are easier to manipulate):
 
 `    img = cv2.resize(img, (200, 66))`
+
+<img width="801" alt="resizecomparison" src="https://user-images.githubusercontent.com/34197007/80828144-0e2fb280-8be5-11ea-8dc1-6f0174b699d6.PNG">
+
 
 ### 6. Normalize the images:
 
@@ -174,6 +176,8 @@ Also we are dealing with a regression-type problem, instead of classification as
 
 For modeling our steering data based on behavioral cloning, we will create an **Nvidia NN model**, since the LeNet model proved to be insufficient for classifying road images. 
 
+<img width="254" alt="NvidiaCNN" src="https://user-images.githubusercontent.com/34197007/80828139-0cfe8580-8be5-11ea-93b7-afce364f22b5.PNG">
+
 More info regarding the **Nvidia End-to-End learning model** can be found at:
 [https://images.nvidia.com/content/tegra/automotive/images/2016/solutions/pdf/end-to-end-dl-using-px.pdf](https://images.nvidia.com/content/tegra/automotive/images/2016/solutions/pdf/end-to-end-dl-using-px.pdf)
 
@@ -181,6 +185,9 @@ More info regarding the **Nvidia End-to-End learning model** can be found at:
 
 2. We add a **Convolutional** layer of 24 filters of 5x5 kernel size, and a stride of 2x2 (subsample). We don't use padding. We set as input the images we get from preprocessing, and activation function **elu**.
 **Notice** that in this tutorial **we use elu instead of relu** activation function because it has the advantage of non-zero gradient in the negative region, which will result in not stacking into a dead relu: A node in the network dies and only feeds its next ones following with zero.
+
+![elu](https://user-images.githubusercontent.com/34197007/80828124-0a9c2b80-8be5-11ea-9064-2379cf21cf78.jpg)
+
 
 3. We add a second **convolutional** layer of 36 filters of 5x5 kernel size, with stride 2x2 and relu activation function.
 
@@ -223,6 +230,8 @@ def  nvidia_model():
 
 11. We **compile** the model with **mean squared error** as a loss function, **adam** as an optimizer with 0.001 **learning rate**. We plot the summary below:
 
+<img width="382" alt="summary" src="https://user-images.githubusercontent.com/34197007/80828099-05d77780-8be5-11ea-9240-7ea6dbd8f259.PNG">
+
 
 ## VII. Train the model:
 
@@ -235,6 +244,8 @@ We train the model with 30 **epochs**, **batch size** of 100 and **verbose** and
 ### 2. Plot the loss graph:
 
 We plot the **loss** graph and we can clearly see the difference between using relu and elu activation function:
+
+
 
 ## VIII. Establish the communication between the model with the simulator:
 
@@ -355,6 +366,8 @@ and opening the simulator in **autonomous mode**.
 
 Running the simulator in both provided tracks, we notice poor performance due to the small dataset that the model was trained on, resulting in **lack of generalization**. For this reason we must enforce the generalization of the model. Thus, we introduce to the model the **data augmentation** technique.
 
+![dataaugmentation](https://user-images.githubusercontent.com/34197007/80828122-0a9c2b80-8be5-11ea-8fc6-4a7abacb8d94.png)
+
 As discussed in the previous tutorial, data augmentation is the process of modifying the images in several ways, resulting in a variety of types of the images the model is trained on, giving us a bigger dataset and thus a more robust model.
 
 Instead of using the predefined data image generator from keras, we will build our own **batch generator** to add flexibility, variety and make it specific to the application of self-driving car.
@@ -377,6 +390,8 @@ and we apply it to our image:
 
 We **plot** a random original and the zoomed image to spot the differences:
 
+<img width="807" alt="zoom" src="https://user-images.githubusercontent.com/34197007/80828108-07a13b00-8be5-11ea-873a-3659f655ff92.PNG">
+
 ### 3. Pan Augmentation:
 
 Image **panning** is the horizontal or vertical translation of an image.
@@ -389,6 +404,8 @@ image = pan.augment_image(image)
 
 And we again **plot** the original and the panned image:
 
+<img width="800" alt="pan" src="https://user-images.githubusercontent.com/34197007/80828140-0d971c00-8be5-11ea-858b-069213b1bd72.PNG">
+
 ### 4. Brightness:
 
 This function is going to **alter the brightness** of the image, making it either lighter or darker by multiplying the intensities of the pixels with a specific value. It can be found inside the `Multiply` function of the image augmentation library. We set the range of 0.2 to 1.2.
@@ -399,6 +416,8 @@ image = brightness.augment_image(image)
 ```
 
 And we **plot** the original and the brightness altered image:
+
+<img width="804" alt="brightness" src="https://user-images.githubusercontent.com/34197007/80828113-08d26800-8be5-11ea-9170-759e6e70cc2d.PNG">
 
 ### 5. Flipping:
 
@@ -413,6 +432,8 @@ and flipping the steering angle as well:
 `steering_angle = -steering_angle`
 
 We **plot** the original and the flipped image, as well as its corresponding steering angle:
+
+<img width="799" alt="flip" src="https://user-images.githubusercontent.com/34197007/80828130-0b34c200-8be5-11ea-88d5-bd10a93f279f.PNG">
 
 ### 6. Randomly apply the augmentations to images:
 
@@ -435,6 +456,9 @@ def random_augment(image, steering_angle):
 
 We then **plot** the original and the augmented image after we applied the above functions to have an overview, and we get:
 
+<img width="800" alt="augmentedimages" src="https://user-images.githubusercontent.com/34197007/80828110-08d26800-8be5-11ea-9caf-f967e6177db4.PNG">
+
+
 ### 7. Create a batch generator of augmented images:
 
 An important aspect of the data augmented generator is that it creates small batches of augmented images on-the-fly, saving that way memory resources.
@@ -453,6 +477,8 @@ x_train_gen, y_train_gen = next(batch_generator(X_train, y_train, 1, 1))
 x_valid_gen, y_valid_gen = next(batch_generator(X_valid, y_valid, 1, 0))
 ```
 and we **plot** an image from the training dataset and an image from the validation set to spot how augmentation techniques altered the training image, whereas the validation image just had been preprocessed:
+
+<img width="798" alt="trainvalidgen" src="https://user-images.githubusercontent.com/34197007/80828100-06700e00-8be5-11ea-9970-90129f091a4d.PNG">
 
 ## X. Train the augmented images generator dataset:
  
@@ -483,6 +509,11 @@ We set the Adam optimizer's **learning rate** even lower, to 0.0001.
 
 Last, after evaluating our model on the Autonomous mode, we noticed that the vehicle struggles a bit to keep the center of the road, and this is because we may deleted too many of the 0^o^ angle data images. Thus we increase the **threshold** of the samples per bin from 200 to 400:
 
+<img width="280" alt="increasedthreshold" src="https://user-images.githubusercontent.com/34197007/80828135-0c65ef00-8be5-11ea-881f-245b847a8b0f.PNG">
+
+<img width="531" alt="increasedthresholdtrainvalidhisto" src="https://user-images.githubusercontent.com/34197007/80828137-0cfe8580-8be5-11ea-876b-5b3f0a0afbfd.PNG">
+
+
 ## XII. Run the model:
 
 To run the model:
@@ -494,7 +525,9 @@ To run the model:
 4. **Run** the `drive.py` program:
 `python drive.py`
 5. Once it's connected to the port, open the **Udacity simulator** in **Autonomous Mode**.
-6. Select both tracks to verify that the model was well generalized and can perform equally sufficient in the track it was trained on, as well as on completely new tracks it never saw before. 
+6. Select both tracks to verify that the model was well generalized and can perform equally sufficient in the track it was trained on, as well as on completely new tracks it never saw before. The result we get, can be seen below:
+
+![](./docs/Test.gif)
 
 
 
