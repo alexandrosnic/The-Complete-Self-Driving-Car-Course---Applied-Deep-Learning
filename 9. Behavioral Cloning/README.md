@@ -45,9 +45,10 @@ While manually driving, we will continuously capture images that are going to be
 <img width="800" alt="pan" src="https://user-images.githubusercontent.com/34197007/80828140-0d971c00-8be5-11ea-858b-069213b1bd72.PNG">
 <img width="295" alt="reluloss" src="https://user-images.githubusercontent.com/34197007/80828141-0e2fb280-8be5-11ea-93c0-247b196125bf.PNG">
 <img width="801" alt="resizecomparison" src="https://user-images.githubusercontent.com/34197007/80828144-0e2fb280-8be5-11ea-8dc1-6f0174b699d6.PNG">
-![](/docs/Test.gif)
 
-![](/docs/Training.gif)
+![](./docs/Test.gif)
+
+![](./docs/Training.gif)
 
 After we define the model, we are going to test its performance in a completely different testing track, where the car will drive autonomously.
 
