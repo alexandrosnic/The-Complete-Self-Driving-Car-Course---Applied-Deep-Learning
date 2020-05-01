@@ -31,13 +31,13 @@ The data are generated from 3 cameras on the left, the middle and the right of t
 
 ## III. Examine the data:
 
-**1. Clone the data:**
+### 1. Clone the data:
 
 We first **clone** the data we created from this github repository:
 
 `!git clone https://github.com/alexandrosnic/The-Complete-Self-Driving-Car-Course---Applied-Deep-Learning`
 
-**2. Read the data:**
+### 2. Read the data:
 
 Then we read the data:
 
@@ -45,7 +45,7 @@ Then we read the data:
 
 and we get this datasheet:
 
-**3. Visualize the distribution:**
+### 3. Visualize the distribution:
 
 We **visualize** the distribution of the steering angles in a histogram, just to get an idea, and to determine the steps we need to do in the preprocessing section. We also set a **threshold** of 200 samples in each bin to make the distribution more uniform:
 
@@ -82,7 +82,7 @@ We notice that both the training and the validation set are **equally balanced a
 
 ## V. Preprocess the data:
 
-**1. Obtain the images:**
+### 1. Obtain the images:
 
 We **obtain** the images by taking their path:
 `mpimg.imread(img)`
@@ -95,38 +95,38 @@ original_image = mpimg.imread(image)
 preprocessed_image = img_preprocess(original_image)
 ```
 
-**2. Crop the images:**
+### 2. Crop the images:
 
 We **crop** the image to exclude irrelevant data such as the scenery and the car's hood:
 
 `    img = img[60:135,:,:]`
 
 
-**3. Change color format to YUV:**
+### 3. Change color format to YUV:
 
 We will use the **YUV** color format (Y: brightness, UV: chromium to add color) since it's recommended for the nvidia model that we will build (instead of lenet):
 
 `    img = cv2.cvtColor(img, cv2.COLOR_RGB2YUV)`
 
-**4. Gaussian Blur:**
+### 4. Gaussian Blur:
 
 We use **Gaussian Blur** (Gaussian kernel of 3x3) to smoothen the image and reduce noise:
 
 `    img = cv2.GaussianBlur(img,  (3, 3), 0)`
 
-**5. Resize the images:**
+### 5. Resize the images:
 
 We **resize** the image since it helps for faster computations (smaller images are easier to manipulate):
 
 `    img = cv2.resize(img, (200, 66))`
 
-**6. Normalize the images:**
+### 6. Normalize the images:
 
 And last, we **normalize** the image by dividing the value of the intensity of the pixel, by the max value (255):
 
 `    img = img/255`
 
-**7. Apply to all the entire dataset:**
+### 7. Apply to all the entire dataset:
 
 To apply the preprocess over all the data we use the **map** function, which iterate through the entire array, and for every element of the array it loops to, it returns an element based on the specified function. It returns it as a list, and we turn it to an array:
 
@@ -195,19 +195,19 @@ def  nvidia_model():
 
 ## VII. Train the model:
 
-**1. Train the model:**
+### 1. Train the model:
 
 We train the model with 30 **epochs**, **batch size** of 100 and **verbose** and **shuffle** set to true. 
 
 `history = model.fit(X_train, y_train, batch_size=100, epochs=30, validation_data=(X_val, y_val), shuffle = 1, verbose = 1)`
 
-**2. Plot the loss graph:**
+### 2. Plot the loss graph:
 
 We plot the **loss** graph and we can clearly see the difference between using relu and elu activation function:
 
 ## VIII. Establish the communication between the model with the simulator:
 
-**1. Download our model:**
+### 1. Download our model:
 
 We first have to save our model:
 `model.save('model.h5')`
@@ -217,7 +217,7 @@ And then we download our model:
 from google.colab import files
 files.download('model.h5')
 ```
-**2. Install the required libraries:**
+### 2. Install the required libraries:
 
 We have to create a bi-directional client-server communication. To do so we need to download all the relevant **libraries**. 
 
@@ -243,7 +243,7 @@ from flask import Flask
 app = Flask(__name__) #'__main__'
 ```
 
-**3. Set server - web app communication:**
+### 3. Set server - web app communication:
 
 We initialize the **server**: 
 
@@ -253,13 +253,13 @@ We combine the socket server with the flask web app with a **middleware**:
 
 `    app = socketio.Middleware(sio, app)`
 
-**4. Send server's requests to the web app:**
+### 4. Send server's requests to the web app:
 
 We use **wsgi** to send the server's requests to the web app, while listening in the `4567` ip address:
 
 `    eventlet.wsgi.server(eventlet.listen(('', 4567)), app)`
 
-**5. Create the Connect function:**
+### 5. Create the Connect function:
 
 With the event name "Connect" we can trigger the **connect function**: 
 
@@ -269,7 +269,7 @@ The other 2 names that can be used by sio are *message* and *disconnect*.
 
 With the connect function we make sure that our server was connected with the autonomous mode simulator, and as soon as it is connected, we command it to go straight. To do so, we emit actions in the `steering_angle` and the `throttle` commands of the `steer` event of the autonomous mode.
 
-**6. Get the images from the model:**
+### 6. Get the images from the model:
 
 Then we must connect the `steering_angle` with our model. 
 
@@ -287,7 +287,7 @@ In order for our code to make sense of the images, we decode the **base 64** ima
 
 `image = Image.open(BytesIO(base64.b64decode(data['image'])))`
 
-**7. Preprocess the images:**
+### 7. Preprocess the images:
 
 However, the image needs to be **preprocessed** the same way as we did with our dataset, before feeding it to the model. Thus, we also include and run the `img_preprocess` function:
 
@@ -301,7 +301,7 @@ def img_preprocess(img):
     return img
 ```
 
-**8. Predict the required steering angle:**
+### 8. Predict the required steering angle:
 
 We **predict** the output of the image using our model:
 `steering_angle = float(model.predict(image))`
