@@ -1,6 +1,6 @@
 # The Complete Self Driving Car Course - Applied Deep Learning
 
-![](./9\.\ Behavioral\ Cloning/docs/Test.gif)
+![](./9\.%20Behavioral%20Cloning/docs/Test.gif)
 
 In this tutorial we are going to ultimately build an autonomous driving Neural Network model, trained from manual driving simulator, using the behavioral cloning technique, in Python.
 
