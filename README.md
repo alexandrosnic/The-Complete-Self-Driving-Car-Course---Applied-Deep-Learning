@@ -24,7 +24,7 @@ In this section we upgrade our previous knowledge by building a Neural Network m
 
 In this section we extend the previous knowledge by building a **Deep Neural Network**, which essentially allows non-linear classification between 2 classes.
 
-## 5. **Multi Class Deep Neural Network	**
+## 5. **Multi Class Deep Neural Network**
 
 In this section, we extend the Deep Neural Network, by implementing non-linear classification for a **multiple-class problem**, which is usually the case in real-world.
 
